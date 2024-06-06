@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest>
+	<identifier>RJW-Mens-Ress</identifier>
+	<version>1.0.0</version>
+	<dependencies>
+        <li>RimJobWorld</li>
+		<li>HugsLib</li>
+		<li>RJW Menstruation Cycle</li>
+	</dependencies>
+
+	<loadAfter>
+        <li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+		<li>rim.job.world</li>
+		<li>brrainz.harmony</li>
+		<li>rjw.menstruation</li>
+	</loadAfter>
+
+</Manifest>

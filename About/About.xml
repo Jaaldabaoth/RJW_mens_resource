@@ -1,0 +1,44 @@
+<ModMetaData>
+	<name>RJW Menstruation - Resources submod</name>
+	<author>Jaaldabaoth</author>
+    <packageId>Jaaldabaoth.rjw.mens_resources</packageId>
+	<supportedVersions>
+		<li>1.5</li>
+	</supportedVersions>
+	<description>Add resource support for RJW menstruation pregnancy</description>
+	<modDependencies>
+		<li>
+			<packageId>rim.job.world</packageId>
+			<displayName>RimJobWorld</displayName>
+			<downloadUrl>https://www.loverslab.com/files/file/7257-rimjobworld/</downloadUrl>
+		</li>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>UnlimitedHugs.HugsLib</packageId>
+			<displayName>HugsLib</displayName>
+			<downloadUrl>https://github.com/UnlimitedHugs/RimworldHugsLib/releases/latest</downloadUrl>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/818773962</steamWorkshopUrl>
+		</li>
+		<li>
+			<packageId>rjw.menstruation</packageId>
+			<displayName>RJW Menstruation Cycle</displayName>
+			<downloadUrl>https://gitgud.io/lutepickle/rjw_menstruation/</downloadUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+		<li>rim.job.world</li>
+		<li>brrainz.harmony</li>
+		<li>rjw.menstruation</li>
+
+	</loadAfter>
+
+</ModMetaData>
