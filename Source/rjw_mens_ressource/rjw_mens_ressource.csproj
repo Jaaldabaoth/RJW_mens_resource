@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Patches\MenstruationUtility_patcher.cs" />
     <Compile Include="Patches\Hediff_MultiplePregnancy_patcher.cs" />
     <Compile Include="Patches\PregnancyCommon_Patcher.cs" />
     <Compile Include="Patches\Dialog_HybridCustom_patcher.cs" />

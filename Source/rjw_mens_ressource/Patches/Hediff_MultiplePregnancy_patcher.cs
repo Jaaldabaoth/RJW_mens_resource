@@ -63,6 +63,13 @@ namespace rjw_mens_ressource
                 }
             }
             instance.pawn.health?.RemoveHediff(instance);
+            HediffComp_Menstruation comp = instance.GetMenstruationCompFromPregnancy();
+            if (comp != null) comp.Pregnancy = null;
+            HediffComp_Breast breastcomp = instance.pawn.GetBreastComp();
+            if (ModsConfig.BiotechActive && xxx.is_human(instance.pawn) && breastcomp != null)
+                instance.pawn.health.AddHediff(HediffDefOf.Lactating);
+            breastcomp?.GaveBirth();
+            FilthMaker.TryMakeFilth(instance.pawn.Position, instance.pawn.Map, ThingDefOf.Filth_AmnioticFluid, instance.pawn.LabelIndefinite(), 5);
         }
 
         [HarmonyPostfix]
@@ -142,7 +149,7 @@ namespace rjw_mens_ressource
 
                 if (res == null)
                 {
-                    Log.Warning($"Could not find pawnKind or race {key}, removing hybrid definition");
+                    Log.Warning($"Could not find TingDef, removing hybrid definition");
                     ext.hybridInfo.Remove(key);
                 }
                 if (!DefsOf.AllIngestible.Contains(res))
