@@ -143,20 +143,28 @@ namespace rjw_mens_ressource
             if (ext == null) return null;
             if (ext.hybridInfo == null) return null;
             if (ext.hybridInfo.EnumerableNullOrEmpty()) return null;
+            Dictionary<string, float> dict = new Dictionary<string, float>();
+            foreach (KeyValuePair<string, float> s in ext.hybridInfo)
+            {
+                dict.Add(s.Key, s.Value);
+            }
             string key = null;
             ThingDef res = null;
             do
             {
-                key = ext.hybridInfo.RandomElement().Key;
-
-                foreach (ThingDef td in DefsOf.AllIngestible)
+                for (int i = 0; i < ext.hybridInfo.Count; i++)
                 {
-                    if (td.defName == key)
+                    key = dict.RandomElement().Key;
+                    foreach (ThingDef td in DefsOf.AllIngestible)
                     {
-                        res = td;
+                        if (td.defName == key)
+                        {
+                            res = td; break;
+                        }
                     }
+                    if (res != null) break;
+                    dict.Remove(key);
                 }
-               
             } while (res == null && !ext.hybridInfo.EnumerableNullOrEmpty());
             int a = 80;
             if (key != null)
