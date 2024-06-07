@@ -16,6 +16,8 @@ namespace rjw_mens_ressource
     [HarmonyPatch(typeof(Hediff_MultiplePregnancy))]
     public static class Hediff_MultiplePregnancy_patcher
     {
+        public static System.Random rand = new System.Random();
+
         [HarmonyPrefix]
         [HarmonyPatch("GiveBirth")]
         static bool GiveBirthPrefix(ref Hediff_MultiplePregnancy __instance )
@@ -39,6 +41,7 @@ namespace rjw_mens_ressource
             NameSingle s2;
             ThingDef thingdef;
             Thing thing;
+            int count = 0;
             String[] parts;
             string[] separatingStrings = { "-#-" };
             foreach (Pawn baby in instance.babies)
@@ -49,10 +52,23 @@ namespace rjw_mens_ressource
                     s2 = (NameSingle)s;
                     parts = s2.Name.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
                     thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(parts[0]);
-                    thing = ThingMaker.MakeThing(thingdef);
-                    thing.stackCount = (int)(instance.pawn.BodySize * int.Parse(parts[1]));
-                    GenSpawn.Spawn(thing, instance.pawn.Position, instance.pawn.Map, WipeMode.Vanish);
+                    count= (int)(instance.pawn.BodySize * int.Parse(parts[1]) * (rand.NextDouble() * 0.4 + 1));
+                    do { 
+                        if (count > thingdef.stackLimit)
+                        {
+                            thing = ThingMaker.MakeThing(thingdef);
+                            thing.stackCount = thingdef.stackLimit;
+                            GenSpawn.Spawn(thing, instance.pawn.Position, instance.pawn.Map, WipeMode.Vanish);
+                            count = count - thingdef.stackLimit;
+                        }
+                        else {
+                            thing = ThingMaker.MakeThing(thingdef);
+                            thing.stackCount = count;
+                            GenSpawn.Spawn(thing, instance.pawn.Position, instance.pawn.Map, WipeMode.Vanish);
+                            count = 0;
+                        }
 
+                    } while (count > 0);
                 }
             }
 
