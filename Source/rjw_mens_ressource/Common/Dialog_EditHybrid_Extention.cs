@@ -314,6 +314,7 @@ namespace rjw_mens_ressource
             Widgets.TextFieldNumeric(buttonRect, ref value, ref valuestr, 0, 9999999);
             extension.hybridInfo.SetOrAdd(key, value);
             buttonRect.x -= 80f;
+
             Widgets.Label(buttonRect, String.Format("{0,0:P2}", value / totalWeight));
             Widgets.DrawHighlightIfMouseover(rect);
             TooltipHandler.TipRegion(rect, Translations.CustomHybrid_Tooltip(info.GetDef?.label ?? "Undefined", extension.GetDef?.label ?? "Undefined", label, String.Format("{0,0:0.########%}", value / totalWeight)));

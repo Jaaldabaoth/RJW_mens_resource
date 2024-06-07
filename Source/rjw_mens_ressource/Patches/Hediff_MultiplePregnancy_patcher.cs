@@ -39,15 +39,18 @@ namespace rjw_mens_ressource
             NameSingle s2;
             ThingDef thingdef;
             Thing thing;
+            String[] parts;
+            string[] separatingStrings = { "-#-" };
             foreach (Pawn baby in instance.babies)
             {
                 s = baby.Name;
                 if (s is NameSingle)
                 {
                     s2 = (NameSingle)s;
-                    thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(s2.Name);
+                    parts = s2.Name.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
+                    thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(parts[0]);
                     thing = ThingMaker.MakeThing(thingdef);
-                    thing.stackCount = (int)(instance.pawn.BodySize * 80);
+                    thing.stackCount = (int)(instance.pawn.BodySize * int.Parse(parts[1]));
                     GenSpawn.Spawn(thing, instance.pawn.Position, instance.pawn.Map, WipeMode.Vanish);
 
                 }
@@ -78,15 +81,15 @@ namespace rjw_mens_ressource
         {
             if (__result.def.defName == "Carrier")
             {
-                string name = GetHybrid2(mother, father).defName;
+                string name = GetHybrid2(mother, father);
                 NameSingle nameSingle = new NameSingle(name);
                 __result.Name = nameSingle;
             }
         }
 
-        public static ThingDef GetHybrid2(Pawn first, Pawn second)
+        public static string GetHybrid2(Pawn first, Pawn second)
         {
-            ThingDef res = null;
+            string res = null;
             Pawn opposite = second;
             HybridInformations info = null;
 
@@ -124,41 +127,43 @@ namespace rjw_mens_ressource
             }
             return res;
         }
-        public static ThingDef GetHybridWith2(string race, PawnDNAModExtension dna)
+        public static string GetHybridWith2(string race, PawnDNAModExtension dna)
         {
             if (dna == null) return null;
             return ChooseOne2(dna.GetHybridExtension(race));
         }
 
-        public static ThingDef GetHybridWith2(string race, HybridInformations info)
+        public static string GetHybridWith2(string race, HybridInformations info)
         {
             if (info == null) return null;
             return ChooseOne2(info.GetHybridExtension(race));
         }
-        public static ThingDef ChooseOne2(HybridExtension ext)
+        public static string ChooseOne2(HybridExtension ext)
         {
             if (ext == null) return null;
             if (ext.hybridInfo == null) return null;
             if (ext.hybridInfo.EnumerableNullOrEmpty()) return null;
+            string key = null;
             ThingDef res = null;
             do
             {
-                string key = ext.hybridInfo.RandomElementByWeight(x => x.Value).Key;
+                key = ext.hybridInfo.RandomElement().Key;
 
-                res = DefDatabase<ThingDef>.GetNamedSilentFail(key);
-
-                if (res == null)
+                foreach (ThingDef td in DefsOf.AllIngestible)
                 {
-                    Log.Warning($"Could not find TingDef, removing hybrid definition");
-                    ext.hybridInfo.Remove(key);
+                    if (td.defName == key)
+                    {
+                        res = td;
+                    }
                 }
-                if (!DefsOf.AllIngestible.Contains(res))
-                {
-                    res = null;
-                }
+               
             } while (res == null && !ext.hybridInfo.EnumerableNullOrEmpty());
-
-            return res;
+            int a = 80;
+            if (key != null)
+            {
+                a = (int)ext.hybridInfo.TryGetValue(key);
+            }
+            return res.defName+"-#-"+a;
         }
     }
 
