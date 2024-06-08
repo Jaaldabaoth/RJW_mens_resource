@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>Defs/ThingDef[defName="Race's defName"]</xpath>
+		<value>
+				<li Class="RJW_Menstruation.PawnDNAModExtension">
+					<fetusTexPath>Fetus/Fetus_Default</fetusTexPath>
+					<cumColor>(255,255,255,255)</cumColor>
+					<cumThickness>0.2</cumThickness>
+					<cumOutcomeDoers>
+						<li Class="IngestionOutcomeDoers">
+							<Some field>value</Some field>
+							<Some field>value</Some field>
+						</li>
+					</cumOutcomeDoers>
+					<hybridExtension>
+						<Other Race's defName>
+							<Race or PawnKind defName>1.0</Race or PawnKind defName>
+							<Race or PawnKind defName>5.0</Race or PawnKind defName>
+							<Race or PawnKind defName>7.0</Race or PawnKind defName>
+							<Race or PawnKind defName>2.0</Race or PawnKind defName>
+						</Other Race's defName>
+						<Other Race's defName>
+							<Race or PawnKind defName>98.0</Race or PawnKind defName>
+							<Race or PawnKind defName>2.0</Race or PawnKind defName>
+						</Other Race's defName>
+					</hybridExtension>
+				</li>
+		</value>
+	</Operation>
+-->
+
+<Patch>
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>/Defs/ThingDef[defName="RawBerries"]</xpath>
+		<value>
+				<li Class="RJW_Menstruation.PawnDNAModExtension">
+					<fetusTexPath>Fetus/Plants/Fetus_Plant_G</fetusTexPath>
+					<cumColor>(255,255,255,255)</cumColor> 
+					<cumThickness>0.2</cumThickness>
+					<ingestionOutcomeDoers>
+						<li Class="IngestionOutcomeDoer_GiveHediff">
+							<chance>0.005</chance>
+							<hediffDef>Hediff_ASA</hediffDef>
+							<severity>0.01</severity>
+						</li>
+					</ingestionOutcomeDoers>
+					<hybridExtension>
+					</hybridExtension>
+				</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>/Defs/ThingDef[defName="MedicineHerbal"]</xpath>
+		<value>
+				<li Class="RJW_Menstruation.PawnDNAModExtension">
+					<fetusTexPath>Fetus/Plants/Fetus_Plant_G</fetusTexPath>
+					<cumColor>(255,255,255,255)</cumColor> 
+					<cumThickness>0.2</cumThickness>
+					<ingestionOutcomeDoers>
+						<li Class="IngestionOutcomeDoer_GiveHediff">
+							<chance>0.005</chance>
+							<hediffDef>Hediff_ASA</hediffDef>
+							<severity>0.01</severity>
+						</li>
+					</ingestionOutcomeDoers>
+					<hybridExtension>
+					</hybridExtension>
+				</li>
+		</value>
+	</Operation>
+	
+	
+</Patch>
