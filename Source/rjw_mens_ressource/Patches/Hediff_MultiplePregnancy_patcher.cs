@@ -42,17 +42,14 @@ namespace rjw_mens_ressource
             ThingDef thingdef;
             Thing thing;
             int count = 0;
-            String[] parts;
-            string[] separatingStrings = { "-#-" };
             foreach (Pawn baby in instance.babies)
             {
                 s = baby.Name;
                 if (s is NameSingle)
                 {
                     s2 = (NameSingle)s;
-                    parts = s2.Name.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
-                    thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(parts[0]);
-                    count= (int)(instance.pawn.BodySize * int.Parse(parts[1]) * (rand.NextDouble() * 0.4 + 1));
+                    thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(s2.Name);
+                    count= (int)(instance.pawn.BodySize * 80 * (rand.NextDouble() * 0.4 + 1));
                     do { 
                         if (count > thingdef.stackLimit)
                         {
@@ -170,7 +167,7 @@ namespace rjw_mens_ressource
             {
                 for (int i = 0; i < ext.hybridInfo.Count; i++)
                 {
-                    key = dict.RandomElement().Key;
+                    key = dict.RandomElementByWeight(x => x.Value).Key; ;
                     foreach (ThingDef td in DefsOf.AllIngestible)
                     {
                         if (td.defName == key)
@@ -187,7 +184,7 @@ namespace rjw_mens_ressource
             {
                 a = (int)ext.hybridInfo.TryGetValue(key);
             }
-            return res.defName+"-#-"+a;
+            return res.defName;
         }
     }
 
