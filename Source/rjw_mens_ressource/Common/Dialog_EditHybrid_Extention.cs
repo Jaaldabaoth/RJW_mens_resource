@@ -220,14 +220,11 @@ namespace rjw_mens_ressource
                 List<FloatMenuOption> list = new List<FloatMenuOption>();
                 if (!DefsOf.AllIngestible.NullOrEmpty()) foreach (ThingDef def in DefsOf.AllIngestible)
                     {
-                        if (def.IsIngestible)
-                        {
-                            if (extension.hybridInfo.ContainsKey(def.defName)) continue;
+                         if (extension.hybridInfo.ContainsKey(def.defName)) continue;
                             else
                             {
                                 list.Add(new FloatMenuOption(def.label, delegate { extension.hybridInfo.Add(def.defName, 1.0f); }, Widgets.GetIconFor(def), Color.white));
                             }
-                        }
                     }
                 if (!list.NullOrEmpty())
                 {

@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using rjw;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,24 @@ namespace rjw_mens_ressource
         {
             get
             {
-                if (allingestible != null) return allingestible;
-                allingestible = DefDatabase<ThingDef>.AllDefsListForReading.Where(thingdef => (thingdef.IsIngestible && thingdef.category == ThingCategory.Item && !thingdef.IsCorpse)).ToList();
 
+                if (allingestible != null) return allingestible;
+                List<string>  categories = new List<string>()
+                    { "Foods", "Medicine", "Drugs", "PlantMatter",
+                "FoodMeals","FoodRaw","MeatRaw","PlantFoodRaw","AnimalProductRaw","ResourcesRaw"};
+                allingestible = DefDatabase<ThingDef>.AllDefsListForReading.Where(thingdef => (IsIncategories(thingdef,categories) && !thingdef.IsCorpse)).ToList();
                 return allingestible;
             }
+        }
+
+        public static bool IsIncategories(ThingDef thing, List<string>  categories)
+        {
+            if(thing.category== ThingCategory.Item && thing.thingCategories!=null)
+            foreach (ThingCategoryDef catdef in thing.thingCategories) {
+                if(catdef!=null)
+                if(categories.Contains(catdef.defName)) return true;
+            }
+            return false;
         }
     }
 }
