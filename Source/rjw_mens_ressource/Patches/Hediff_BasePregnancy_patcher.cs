@@ -25,6 +25,7 @@ namespace rjw_mens_ressource
             {
                 if (__instance.babies[0].def.defName == "Carrier") {
                     num = dad.RaceProps.gestationPeriodDays * 30000f;
+                    num *= RJWPregnancySettings.normal_pregnancy_duration;
                     __instance.p_end_tick = __instance.p_start_tick + num;
                 }
             }

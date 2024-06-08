@@ -41,6 +41,8 @@ namespace rjw_mens_ressource
             NameSingle s2;
             ThingDef thingdef;
             Thing thing;
+            float mass1 = 0f;
+            float mass2 = 0f;
             int count = 0;
             foreach (Pawn baby in instance.babies)
             {
@@ -49,7 +51,15 @@ namespace rjw_mens_ressource
                 {
                     s2 = (NameSingle)s;
                     thingdef = DefDatabase<ThingDef>.GetNamedSilentFail(s2.Name);
-                    count= (int)(instance.pawn.BodySize * 80 * (rand.NextDouble() * 0.4 + 1));
+                    foreach(StatModifier stat in thingdef.statBases)
+                    {
+                        if(stat.stat.defName == "Mass") { mass1 = stat.value; }
+                    }
+                    foreach (StatModifier stat in instance.pawn.kindDef.race.statBases)
+                    {
+                        if (stat.stat.defName == "Mass") { mass2 = stat.value; }
+                    }
+                    count = (int)(mass2*0.2* (rand.NextDouble() * 0.4 + 1)/mass1);
                     do { 
                         if (count > thingdef.stackLimit)
                         {
